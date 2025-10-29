@@ -1,40 +1,15 @@
 # Section 5 – Refactoring Code Smells in Practice
 
-This activity is designed to help you practice identifying code smells and applying refactoring patterns to a real codebase in CMPM 121, Game Development Patterns.
+Code Smell Refactoring
 
-## Assignment Instructions
+Combinatorial explosion - lines 31-66, only difference is what happens to the counter, very redundant. Solution: make a render function and two other functions for changing and resetting the count and put the repetitive code and call it inside of the eventListener handler.
 
-For this assignment, your task is to **analyze and improve the code in `src/main.ts`**:
+Refactored by "Extract Function": created a new render() function to handle UI updates and a changeBy(delta) and reset() function to modify the counter. This removed the repetitive code in each event listener, improving maintainability and readability.
 
-1. **Identify code smells**: Review the code and look for patterns that may cause maintenance issues, reduce readability, or introduce potential bugs.
-2. **Refactor**: Apply **refactoring patterns** as described in Fowler’s _Refactoring_ book to improve the code.
-3. **Document your work**: Once you have completed your refactoring:
-   - Rewrite this README.md
-   - List the **code smells** you identified
-   - Describe the **refactoring patterns** you applied and how they improved the code
+Uncommutative names and What comments - lines 1-73, there is a comment for literally every line of code, repetitive and unnecessary, no meaningful names like what is bI, bD blah blah blah could be fixed by having a more meaningful name, ie instead of bI it could be incrementButton.
 
-## Getting Started
+Refactored by "Rename Variable" and "Remove Comments / Self-Documenting Code": Replaced unclear names (a, b, h) with meaningful ones (incrementButton, counterDisplay, pageTitle, etc.). This made the code self-documenting and eliminated the need for redundant comments. I also deleted “what” comments that repeated exactly what the code already expressed. The improved naming and structure made the code self-explanatory, so the extra comments were unnecessary.
 
-With Codespaces (or another environment supporting devcontainers):
+Dubious Abstraction - lines 68-73, unnecessary start function to just call setup when they just can call setup without an additional function.
 
-1. Run `deno task dev` to start the development server
-
-Without Codespaces (local VS Code):
-
-1. Install the [Deno](https://docs.deno.com/runtime/getting_started/installation/) runtime.
-2. Install the Deno VS Code extension (must be done only after installing Deno runtime).
-3. Run `./setup-hooks.sh` to enable pre-commit quality checks
-4. Run `deno task dev` to start the development server
-
-The setup script configures Git hooks to automatically run formatting, linting, and type checking before commits.
-
-## Deployment
-
-This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
-
-### Setup GitHub Pages Deployment
-
-1. Go to your repository's Settings → Pages
-2. Under "Source", select "GitHub Actions"
-3. The workflow will automatically deploy on pushes to the `main` branch
-4. Your site will be published at `https://<your-github-username>.github.io/<repository-name>/`
+Refactored by "Inline Function": I removed the pointless start() wrapper and directly called setup(). This simplified the control flow and avoided unnecessary abstraction.
